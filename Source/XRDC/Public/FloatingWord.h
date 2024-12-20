@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "FloatingWord.generated.h"
 
-
+class UBoxComponent;
 UCLASS()
 class XRDC_API AFloatingWord : public AActor
 {
@@ -24,6 +24,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 	USceneComponent* GrabComponent;
 
+	UPROPERTY(EditAnywhere)
+	UBoxComponent* CollisionBox;
+
 	//variables
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float UpperBoundary = 75.0f;
@@ -31,8 +34,11 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	FVector DeviationDirection;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadWrite)
 	FVector StartPosition;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool isMerging = false;
 
 
 protected:
@@ -50,5 +56,8 @@ public:
 	FORCEINLINE void SetStartPosition(FVector i_position) {
 		StartPosition = i_position;
 	};
+
+	UFUNCTION(BlueprintCallable)
+	void TryMerge(AFloatingWord* other);
 
 };

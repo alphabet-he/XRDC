@@ -2,6 +2,7 @@
 
 
 #include "FloatingWord.h"
+#include "Components/BoxComponent.h"
 
 // Sets default values
 AFloatingWord::AFloatingWord()
@@ -18,6 +19,9 @@ AFloatingWord::AFloatingWord()
 	GrabComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Grab Component"));
 	GrabComponent->SetupAttachment(Mesh);
 
+	CollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision Box"));
+	CollisionBox->SetupAttachment(RootComponent);
+
 }
 
 // Called when the game starts or when spawned
@@ -32,5 +36,11 @@ void AFloatingWord::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void AFloatingWord::TryMerge(AFloatingWord* other)
+{
+	isMerging = true;
+	other->isMerging = true;
 }
 
