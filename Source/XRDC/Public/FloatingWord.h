@@ -7,6 +7,7 @@
 #include "FloatingWord.generated.h"
 
 class UBoxComponent;
+class AFloatingWordManager;
 UCLASS()
 class XRDC_API AFloatingWord : public AActor
 {
@@ -29,6 +30,15 @@ protected:
 
 	//variables
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UStaticMesh* WordMesh;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UStaticMesh* ObjectMesh;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	bool isTool = false;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float UpperBoundary = 75.0f;
 
 	UPROPERTY(BlueprintReadWrite)
@@ -39,6 +49,9 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite)
 	bool isMerging = false;
+
+	UPROPERTY(BlueprintReadOnly)
+	AFloatingWordManager* GameManager;
 
 
 protected:
@@ -55,6 +68,10 @@ public:
 
 	FORCEINLINE void SetStartPosition(FVector i_position) {
 		StartPosition = i_position;
+	};
+
+	FORCEINLINE void SetManager(AFloatingWordManager* i_manager) {
+		GameManager = i_manager;
 	};
 
 	UFUNCTION(BlueprintCallable)

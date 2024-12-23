@@ -9,6 +9,22 @@
 class AFloatingWord;
 class ATelevision;
 
+UENUM(BlueprintType)
+enum class ETools : uint8 {
+	FORK = 0,
+	BRUSH = 1,
+	COUNT = 2
+};
+
+UENUM(BlueprintType)
+enum class EObjects : uint8 {
+	PANCAKE = 0,
+	CHIPS = 1,
+	FLOWER = 2,
+	CANVAS = 3,
+	COUNT = 4
+};
+
 USTRUCT(BlueprintType)
 struct XRDC_API FTelevisionSpawnInfo 
 {
@@ -25,6 +41,16 @@ public:
 	uint8 currSpawningInd = -1;
 };
 
+USTRUCT(BlueprintType)
+struct XRDC_API FCorrectObjectsArr
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere)
+	TArray<EObjects> CorrectObjects;
+};
+
 UCLASS()
 class XRDC_API AFloatingWordManager : public AActor
 {
@@ -38,6 +64,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 	TArray<FTelevisionSpawnInfo> SpawnInfoList;
 
+	UPROPERTY(EditAnywhere)
+	TMap<ETools, FCorrectObjectsArr> ToolObjectPairs;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -48,5 +77,10 @@ protected:
 public:	
 	// Called every frame
 	//virtual void Tick(float DeltaTime) override;
+
+	FORCEINLINE bool isCorrectObject(ETools i_toolType, EObjects i_objectTool) 
+	{
+		return ToolObjectPairs[i_toolType].CorrectObjects.Contains(i_objectTool);
+	}
 
 };

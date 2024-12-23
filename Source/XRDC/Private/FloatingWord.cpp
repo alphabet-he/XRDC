@@ -29,6 +29,7 @@ void AFloatingWord::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	Mesh->SetStaticMesh(WordMesh);
 }
 
 // Called every frame

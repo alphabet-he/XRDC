@@ -44,6 +44,8 @@ void AFloatingWordManager::SpawnWords(uint8 i_spawnInfoInd)
 	if (i_spawnedWord) {
 		i_spawnedWord->SetDeviationDirection(SpawnInfoList[i_spawnInfoInd].Television->GetDeviationVector());
 		i_spawnedWord->SetStartPosition(SpawnInfoList[i_spawnInfoInd].Television->GetSpawningPosition());
+		i_spawnedWord->SetManager(this);
 	}
 }
+
 
