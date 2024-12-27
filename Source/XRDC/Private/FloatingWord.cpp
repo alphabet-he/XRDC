@@ -20,7 +20,7 @@ AFloatingWord::AFloatingWord()
 	GrabComponent->SetupAttachment(Mesh);
 
 	CollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision Box"));
-	CollisionBox->SetupAttachment(RootComponent);
+	CollisionBox->SetupAttachment(Mesh);
 
 }
 
