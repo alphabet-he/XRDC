@@ -1,2 +1,0 @@
-Meta XR Platform Plugin Version 1.97.0
-SDK Release Version: 65.0.0
