@@ -1,14 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "FloatingWord.h"
-#include "Components/BoxComponent.h"
+#include "Floor.h"
 
 // Sets default values
-AFloatingWord::AFloatingWord()
+AFloor::AFloor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	USceneComponent* _RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root Component"));
 	RootComponent = _RootComponent;
@@ -16,26 +15,14 @@ AFloatingWord::AFloatingWord()
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(RootComponent);
 
-	GrabComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Grab Component"));
-	GrabComponent->SetupAttachment(Mesh);
-
-	CollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision Box"));
-	CollisionBox->SetupAttachment(Mesh);
-
+	RootComponent->SetMobility(EComponentMobility::Static);
 }
 
 // Called when the game starts or when spawned
-void AFloatingWord::BeginPlay()
+void AFloor::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	Mesh->SetStaticMesh(WordMesh);
 }
 
-// Called every frame
-void AFloatingWord::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
 

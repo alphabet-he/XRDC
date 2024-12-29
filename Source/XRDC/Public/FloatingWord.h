@@ -36,19 +36,28 @@ protected:
 	UStaticMesh* ObjectMesh;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	bool isTool = false;
+	bool bIsTool = false;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	float UpperBoundary = 75.0f;
+	bool bCanPutToGround = false;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bUsed = false;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bOnGround = false;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float InHandScale = 1.0f;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float PutToGroundScale = 1.0f;
 
 	UPROPERTY(BlueprintReadWrite)
 	FVector DeviationDirection;
 
 	UPROPERTY(BlueprintReadWrite)
 	FVector StartPosition;
-
-	UPROPERTY(BlueprintReadWrite)
-	bool isMerging = false;
 
 	UPROPERTY(BlueprintReadOnly)
 	AFloatingWordManager* GameManager;
@@ -73,8 +82,5 @@ public:
 	FORCEINLINE void SetManager(AFloatingWordManager* i_manager) {
 		GameManager = i_manager;
 	};
-
-	UFUNCTION(BlueprintCallable)
-	void TryMerge(AFloatingWord* other);
 
 };

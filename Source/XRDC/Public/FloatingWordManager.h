@@ -12,16 +12,18 @@ class ATelevision;
 UENUM(BlueprintType)
 enum class ETools : uint8 {
 	FORK = 0,
-	BRUSH = 1,
-	COUNT = 2
+	POT = 1,
+	WATERINGCAN = 2,
+	PLAYER = 3,
+	COUNT = 4
 };
 
 UENUM(BlueprintType)
 enum class EObjects : uint8 {
 	PANCAKE = 0,
-	CHIPS = 1,
+	CARROT = 1,
 	FLOWER = 2,
-	CANVAS = 3,
+	VINYL = 3,
 	COUNT = 4
 };
 
@@ -63,6 +65,15 @@ public:
 protected:
 	UPROPERTY(EditAnywhere)
 	TArray<FTelevisionSpawnInfo> SpawnInfoList;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float FloatingHeight = 75.0f;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	float PutToGroundHeight = 20.0f;
+
+	UPROPERTY(BlueprintReadOnly)
+	float FloorHeight = 0.0f;
 
 protected:
 	// Called when the game starts or when spawned

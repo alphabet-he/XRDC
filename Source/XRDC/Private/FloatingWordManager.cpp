@@ -4,6 +4,8 @@
 #include "FloatingWordManager.h"
 #include "FloatingWord.h"
 #include "Television.h"
+#include <Kismet/GameplayStatics.h>
+#include "Floor.h"
 
 // Sets default values
 AFloatingWordManager::AFloatingWordManager()
@@ -16,6 +18,9 @@ AFloatingWordManager::AFloatingWordManager()
 void AFloatingWordManager::BeginPlay()
 {
 	Super::BeginPlay();
+
+	AActor* i_floor = UGameplayStatics::GetActorOfClass(GetWorld(), AFloor::StaticClass());
+	FloorHeight = i_floor->GetActorLocation().Z;
 	
 	if (SpawnInfoList.Num() > 0) {
 		for (int i = 0; i < SpawnInfoList.Num(); i++) {
@@ -24,6 +29,7 @@ void AFloatingWordManager::BeginPlay()
 			FTimerDelegate i_timerDelegate;
 			FTimerHandle i_timerHandle;
 
+			SpawnWords(i);
 			i_timerDelegate.BindUFunction(this, FName("SpawnWords"), i);
 			GetWorld()->GetTimerManager().SetTimer(i_timerHandle, i_timerDelegate, SpawnInfoList[i].SpawnTimerInterval, true);
 		}
