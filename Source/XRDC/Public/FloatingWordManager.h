@@ -15,18 +15,16 @@ enum class ETools : uint8 {
 	POT = 1,
 	WATERINGCAN = 2,
 	PLAYER = 3,
-	TELESCOPE = 4,
-	PLACEHOLDER = 5
+	COUNT = 4
 };
 
 UENUM(BlueprintType)
 enum class EObjects : uint8 {
-	ICECREAM = 0,
+	PANCAKE = 0,
 	CARROT = 1,
 	FLOWER = 2,
 	VINYL = 3,
-	BIRD = 4,
-	PLACEHOLDER = 5
+	COUNT = 4
 };
 
 USTRUCT(BlueprintType)
@@ -41,7 +39,7 @@ public:
 	float SpawnTimerInterval;
 	UPROPERTY(EditAnywhere)
 	TArray<TSubclassOf<AFloatingWord>> WordSpawnList;
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	uint8 currSpawningInd = -1;
 };
 
