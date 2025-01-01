@@ -14,7 +14,7 @@ class XRDC_API ATelevision : public AActor
 	
 public:	
 	// Sets default values for this actor's properties
-	ATelevision();
+	ATelevision(const FObjectInitializer& ObjectInitializer);
 
 protected:
 	UPROPERTY(EditAnywhere)
@@ -22,6 +22,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	UArrowComponent* SpawningPosition;
+
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* ScreenPlane;
 
 protected:
 	// Called when the game starts or when spawned
