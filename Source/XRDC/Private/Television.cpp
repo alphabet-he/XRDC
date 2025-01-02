@@ -5,7 +5,7 @@
 #include "Components/ArrowComponent.h"
 
 // Sets default values
-ATelevision::ATelevision(const FObjectInitializer& ObjectInitializer)
+ATelevision::ATelevision()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
@@ -15,8 +15,6 @@ ATelevision::ATelevision(const FObjectInitializer& ObjectInitializer)
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(RootComponent);
-	ScreenPlane = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Screen Plane"));
-	ScreenPlane->SetupAttachment(RootComponent);
 	SpawningPosition = CreateDefaultSubobject<UArrowComponent>(TEXT("Spawning Position"));
 	SpawningPosition->SetupAttachment(RootComponent);
 }
