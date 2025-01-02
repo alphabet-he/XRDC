@@ -83,4 +83,8 @@ public:
 		GameManager = i_manager;
 	};
 
+	FORCEINLINE UStaticMeshComponent* GetMesh() {
+		return Mesh;
+	}
+
 };

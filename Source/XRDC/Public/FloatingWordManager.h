@@ -16,7 +16,7 @@ enum class ETools : uint8 {
 	WATERINGCAN = 2,
 	PLAYER = 3,
 	TELESCOPE = 4,
-	PLACEHOLDER = 5
+	CHRISMASTREE = 5
 };
 
 UENUM(BlueprintType)
@@ -26,7 +26,7 @@ enum class EObjects : uint8 {
 	FLOWER = 2,
 	VINYL = 3,
 	BIRD = 4,
-	PLACEHOLDER = 5
+	DOLL = 5
 };
 
 USTRUCT(BlueprintType)
