@@ -10,25 +10,17 @@
 
 AToolTelevision::AToolTelevision(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
-	PowerButtonCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Power Button"));
-	PowerButtonCollision->SetupAttachment(RootComponent);
 
 	NextButtonCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Next Button"));
 	NextButtonCollision->SetupAttachment(RootComponent);
 
 	ConfirmButtonCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Confirm Button"));
 	ConfirmButtonCollision->SetupAttachment(RootComponent);
-
-	InteractionArea = CreateDefaultSubobject<UBoxComponent>(TEXT("Interaction Area"));
-	InteractionArea->SetupAttachment(RootComponent);
 }
 
 void AToolTelevision::BeginPlay()
 {
 	Super::BeginPlay();
-	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AFloatingWordManager::StaticClass(), FoundActors);
-	GameManager = Cast<AFloatingWordManager>(FoundActors[0]);
 
 	check(ToolList.Num() == ToolScreenMaterialList.Num());
 	ScreenPlane->SetMaterial(0, BlackScreenMaterial);
@@ -38,7 +30,12 @@ void AToolTelevision::HitPowerButton()
 {
 	if(CurrToolInd == 255){
 		CurrToolInd = (ToolIndBeforeShutDown == 255) ? 0 : ToolIndBeforeShutDown;
-		ScreenPlane->SetMaterial(0, ToolScreenMaterialList[CurrToolInd]);
+		if (CurrToolInd == PrevGrabbedToolInd) {
+			ScreenPlane->SetMaterial(0, GrabbedScreenMaterial);
+		}
+		else {
+			ScreenPlane->SetMaterial(0, ToolScreenMaterialList[CurrToolInd]);
+		}
 	}
 	else {
 		ToolIndBeforeShutDown = CurrToolInd;
@@ -91,6 +88,12 @@ void AToolTelevision::SpawnTool()
 		i_spawnedWord->SetStartPosition(GetSpawningPosition());
 		i_spawnedWord->SetManager(GameManager);
 	}
+}
+
+void AToolTelevision::AddTool(TSubclassOf<AFloatingWord> i_toolClass, UMaterialInterface* i_screenMaterial)
+{
+	ToolList.Add(i_toolClass);
+	ToolScreenMaterialList.Add(i_screenMaterial);
 }
 
 

@@ -20,17 +20,12 @@ public:
 	AToolTelevision(const FObjectInitializer& ObjectInitializer);
 
 protected:
-	UPROPERTY(EditAnywhere)
-	UBoxComponent* PowerButtonCollision;
 
 	UPROPERTY(EditAnywhere)
 	UBoxComponent* NextButtonCollision;
 
 	UPROPERTY(EditAnywhere)
 	UBoxComponent* ConfirmButtonCollision;
-
-	UPROPERTY(EditAnywhere)
-	UBoxComponent* InteractionArea;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 	TArray<TSubclassOf<AFloatingWord>> ToolList;
@@ -41,12 +36,6 @@ protected:
 	UPROPERTY(EditAnywhere)
 	UMaterialInterface* GrabbedScreenMaterial;
 
-	UPROPERTY(EditAnywhere)
-	UMaterialInterface* BlackScreenMaterial;
-
-	UPROPERTY(EditAnywhere)
-	float SpawnTimerInterval = 8.0f;
-
 	UPROPERTY(BlueprintReadOnly)
 	uint8 CurrToolInd = -1;
 
@@ -56,16 +45,12 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	uint8 ToolIndBeforeShutDown = -1;
 
-	AFloatingWordManager* GameManager;
-
-	FTimerHandle SpawningTimerHandle;
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintCallable)
-	void HitPowerButton();
+	void HitPowerButton() override;
 
 	UFUNCTION(BlueprintCallable)
 	void HitNextButton();
@@ -75,6 +60,9 @@ protected:
 
 	UFUNCTION()
 	void SpawnTool();
+
+	UFUNCTION(BlueprintCallable)
+	void AddTool(TSubclassOf<AFloatingWord> i_toolClass, UMaterialInterface* i_screenMaterial);
 
 public:
 	UFUNCTION(BlueprintCallable)

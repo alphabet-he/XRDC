@@ -3,6 +3,8 @@
 
 #include "Television.h"
 #include "Components/ArrowComponent.h"
+#include "Components/BoxComponent.h"
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 ATelevision::ATelevision(const FObjectInitializer& ObjectInitializer)
@@ -19,13 +21,23 @@ ATelevision::ATelevision(const FObjectInitializer& ObjectInitializer)
 	ScreenPlane->SetupAttachment(RootComponent);
 	SpawningPosition = CreateDefaultSubobject<UArrowComponent>(TEXT("Spawning Position"));
 	SpawningPosition->SetupAttachment(RootComponent);
+	PowerButtonCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Power Button"));
+	PowerButtonCollision->SetupAttachment(RootComponent);
+	InteractionArea = CreateDefaultSubobject<UBoxComponent>(TEXT("Interaction Area"));
+	InteractionArea->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
 void ATelevision::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AFloatingWordManager::StaticClass(), FoundActors);
+	GameManager = Cast<AFloatingWordManager>(FoundActors[0]);
+}
+
+void ATelevision::HitPowerButton()
+{
 }
 
 FVector ATelevision::GetSpawningPosition()

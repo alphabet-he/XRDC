@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "FloatingWordManager.h"
 #include "Television.generated.h"
 
+class UBoxComponent;
 class UArrowComponent;
 UCLASS()
 class XRDC_API ATelevision : public AActor
@@ -26,9 +28,26 @@ protected:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* ScreenPlane;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UBoxComponent* PowerButtonCollision;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UBoxComponent* InteractionArea;
+
+	UPROPERTY(EditAnywhere)
+	UMaterialInterface* BlackScreenMaterial;
+
+	UPROPERTY(EditAnywhere)
+	float SpawnTimerInterval = 8.0f;
+
+	AFloatingWordManager* GameManager;
+
+	FTimerHandle SpawningTimerHandle;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	virtual void HitPowerButton();
 
 public:	
 	FVector GetSpawningPosition();
